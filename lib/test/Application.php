@@ -33,12 +33,17 @@ class Application extends Singleton
 		}
 
 		$class = __NAMESPACE__ . '\\' . $this->_controllersdir . '\\' . $class;
-		$controller = new $class;
-		if( !method_exists($controller, $action) )
+		if (class_exists($class))
 		{
-			Response::headerNotFound();
-		}
-
-		call_user_func_array(array($controller, $action), $dirs);
+            $controller = new $class;
+            if (method_exists($controller, $action))
+            {
+                call_user_func_array(array($controller, $action), $dirs);
+            }
+        }
+		else
+        {
+            Response::headerNotFound();
+        }
 	}
 }
