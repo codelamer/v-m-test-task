@@ -10,7 +10,7 @@ class Application extends Singleton
 	{
 		$dirs = S('Request')->getDirs();
 
-		if( count($dirs) && (($dirs[0] == 'brand1') || ($dirs[0] == 'brand2')) )
+		if( count($dirs) && S('Config')->checkConfig($dirs[0]) )
 		{
 			S('Config')->apply(array_shift($dirs));
 		}

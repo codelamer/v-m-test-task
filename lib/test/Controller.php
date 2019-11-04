@@ -14,7 +14,7 @@ class Controller
 		$this->req = S('Request');
 		$this->_action = $this->req->getDir(0);
 
-		if( ($this->_action == 'brand1') || ($this->_action == 'brand2') )
+		if( S('Config')->checkConfig($this->_action) )
 		{
 			$this->tpl->setGlob('baseurl', '/'.$this->_action);
 		}
@@ -47,7 +47,7 @@ class Controller
 	{
 	    $action = $this->_action;
 
-		if( in_array($this->_action,['brand1','brand2'],true) )
+		if( S('Config')->checkConfig($action) )
 		{
 			$action = S('Request')->getDir(1);
 		}
