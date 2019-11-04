@@ -55,7 +55,7 @@ class Config extends Singleton
 		return $this->_config[$name];
 	}
 
-        protected function _use($name, $incremental = false)
+    protected function _use($name, $incremental = false)
 	{
 		$name = preg_replace('#[^\w-.]#', '', $name);
 		$filename = PROJECTROOT . "/{$this->_cfgdir}/$name.php";
@@ -66,7 +66,7 @@ class Config extends Singleton
 		}
 
 		$this->_config = $incremental
-			? array_merge($this->_config, include($filename))
-			: include($filename);
+			? array_merge($this->_config, include_once($filename))
+			: include_once($filename);
 	}
 }
