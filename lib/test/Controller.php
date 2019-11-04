@@ -6,16 +6,17 @@ class Controller
 {
 	protected $tpl;
 	protected $req;
+	private $_action='/';
 
 	public function __construct()
 	{
 		$this->tpl = S('Template');
 		$this->req = S('Request');
-		$action = $this->req->getDir(0);
+		$this->_action = $this->req->getDir(0);
 
-		if( ($action == 'brand1') || ($action == 'brand2') )
+		if( ($this->_action == 'brand1') || ($this->_action == 'brand2') )
 		{
-			$this->tpl->setGlob('baseurl', "/$action");
+			$this->tpl->setGlob('baseurl', '/'.$this->_action);
 		}
 		else
 		{
@@ -29,17 +30,17 @@ class Controller
 
 	protected function _subscribe()
 	{
-		$_SESSION['subs'] = 1;
+		$_SESSION['subs'][$this->_action] = 1;
 	}
 
 	protected function _unsubscribe()
 	{
-		$_SESSION['subs'] = 0;
+		$_SESSION['subs'][$this->_action] = 0;
 	}
 
 	private function _isSubscribed()
 	{
-		return isset($_SESSION['subs']) ? $_SESSION['subs'] : 0;
+		return isset($_SESSION['subs'][$this->_action]) ? true : false;
 	}
 
 	private function _performChecks()
