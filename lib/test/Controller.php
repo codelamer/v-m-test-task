@@ -45,15 +45,17 @@ class Controller
 
 	private function _performChecks()
 	{
-		$action = S('Request')->getDir(0);
-		if( $action == 'brand1' )
+	    $action = $this->_action;
+
+		if( in_array($this->_action,['brand1','brand2'],true) )
 		{
 			$action = S('Request')->getDir(1);
 		}
 
 		if( !$this->_isSubscribed() && ($action != 'subscribe') )
-		{
-			Response::redirect('/subscribe');
-		}
+        {
+            Response::redirect('/subscribe');
+        }
+
 	}
 }
